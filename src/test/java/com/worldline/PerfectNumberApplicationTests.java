@@ -78,38 +78,5 @@ class PerfectNumberApplicationTests {
         assertFalse( perfectNumberService.checkIfPerfectPrime(1000));
     }
 
-    @DisplayName("Test invalid url response (404) ")
-    @Test
-    public void retrieved_404_when_url_is_wrong(){
-        //Given
-        HttpUriRequest request = new HttpGet( "http://localhost:8080/api/" + "result" );
-
-        // When
-        HttpResponse httpResponse = null;
-        try {
-            httpResponse = HttpClientBuilder.create().build().execute( request );
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        assert httpResponse != null;
-        assertEquals(httpResponse.getStatusLine().getStatusCode(), 404);
-    }
-
-
-    @DisplayName("Test valid url response")
-    @Test
-    public void retrieved_200_when_url_is_ok(){
-        //Given
-        HttpUriRequest request = new HttpGet( "http://localhost:8080/api/getAllPerfectNumbersWithInRange?start=1&end=1000" );
-        // When
-        HttpResponse httpResponse = null;
-        try {
-            httpResponse = HttpClientBuilder.create().build().execute( request );
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        assert httpResponse != null;
-        assertEquals(httpResponse.getStatusLine().getStatusCode(), 200);
-    }
 }
 
