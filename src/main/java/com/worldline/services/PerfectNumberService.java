@@ -46,15 +46,16 @@ public class PerfectNumberService {
         //Initialized all as prime
         IntStream.rangeClosed(0, n).forEach(i-> prime[i] = true);
 
-        for(int p = 2; p*p <=n; p++)
+       /* for(int p = 2; p*p <=n; p++) //IntStream.rangeClosed(2, (int) Math.round(Math.floor(Math.sqrt(n))))
         {
             // If prime[p] is not changed, then it is a prime
-            if(prime[p])
+            if(prime[p]) //filter(i -> prime[i] == true)
             {
                  for(int i = p*p; i <= n; i += p)
-                   prime[i] = false;
+                    prime[i] = false;
             }
-        }
+        }*/
+
        //If it's prime add
         IntStream.rangeClosed(2, n).filter(i-> prime[i]).forEach(primeNumbers::add);
         return primeNumbers;
