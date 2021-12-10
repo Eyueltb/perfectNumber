@@ -59,7 +59,7 @@ public class PerfectNumberService {
             }
         }
         //If it's prime add
-        IntStream.rangeClosed(2, n).filter(i-> prime[i]).forEach(primeNumbers::add);
+         IntStream.rangeClosed(2, n).filter(i-> prime[i]).forEach(primeNumbers::add);
         return primeNumbers;
     }
 
