@@ -21,17 +21,12 @@ public class PerfectNumberService {
     public boolean isPerfectNumberUsingEuclidTheorem(int num) {
         //find primes less than num
         final var primes = getPrimeNumbersUsingSieveOfEratosthenes(num);
-        for (int prime: primes) {
-            if (perfectNumber(prime) == num)
-                return true;
-        }
-        return false;
+        return  primes.stream().anyMatch(prime -> perfectNumber(prime) == num);
     }
 
    /** Time complexity : O(sqrt(n)) and Space complexity : O(1) constant */
     public boolean checkIfPerfectPrime(int number) {
-        if (number <= 0)
-            return false;
+        if (number <= 0) return false;
         int sum = 0;
         for (int i = 1; i * i <= number; i++) {
             if (number % i == 0) {
@@ -51,8 +46,8 @@ public class PerfectNumberService {
     private List<Integer> getPrimeNumbersUsingSieveOfEratosthenes(int n){
         boolean [] prime= new boolean [n+1];
         List<Integer> primeNumbers=new ArrayList<>();
-        for(int i=0;i<=n;i++)
-            prime[i] = true;
+        //Initialized all as prime
+        IntStream.rangeClosed(0, n).forEach(i-> prime[i] = true);
 
         for(int p = 2; p*p <=n; p++)
         {
@@ -63,11 +58,8 @@ public class PerfectNumberService {
                    prime[i] = false;
             }
         }
-        for(int i = 2; i <= n; i++)
-        {
-            if(prime[i])
-                primeNumbers.add(i);
-        }
+        //If it's prime add
+        IntStream.rangeClosed(2, n).filter(i-> prime[i]).forEach(primeNumbers::add);
         return primeNumbers;
     }
 
