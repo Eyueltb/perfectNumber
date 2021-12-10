@@ -26,16 +26,13 @@ public class PerfectNumberService {
 
    /** Time complexity : O(sqrt(n)) and Space complexity : O(1) constant */
     public boolean checkIfPerfectPrime(int number) {
-        if (number <= 0) return false;
-        int sum = 0;
-        for (int i = 1; i * i <= number; i++) {
-            if (number % i == 0) {
-                sum += i;
-                if (i * i != number) {
-                    sum += number / i;
-                }
-            }
-        }
+       if (number <= 0) return false;
+       int sum = IntStream.range(1, (int) Math.round(Math.floor(Math.sqrt(number))) + 1 )
+                .boxed()
+                .parallel()
+                .filter(i -> number % i == 0)
+                .mapToInt(i -> i + ((i * i != number) ? number / i:0))
+                .sum();
         return sum - number == number;
     }
 
