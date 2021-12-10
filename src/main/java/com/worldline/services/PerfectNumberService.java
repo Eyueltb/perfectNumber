@@ -27,7 +27,7 @@ public class PerfectNumberService {
    /** Time complexity : O(sqrt(n)) and Space complexity : O(1) constant */
     public boolean checkIfPerfectPrime(int number) {
        if (number <= 0) return false;
-       int sum = IntStream.range(1, (int) Math.round(Math.floor(Math.sqrt(number))) + 1 )
+       int sum = IntStream.rangeClosed(1, (int) Math.round(Math.floor(Math.sqrt(number))) )
                 .boxed()
                 .parallel()
                 .filter(i -> number % i == 0)
@@ -55,8 +55,8 @@ public class PerfectNumberService {
                    prime[i] = false;
             }
         }
-        //If it's prime add
-         IntStream.rangeClosed(2, n).filter(i-> prime[i]).forEach(primeNumbers::add);
+       //If it's prime add
+        IntStream.rangeClosed(2, n).filter(i-> prime[i]).forEach(primeNumbers::add);
         return primeNumbers;
     }
 
